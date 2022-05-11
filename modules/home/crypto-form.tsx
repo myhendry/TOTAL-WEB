@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   FormErrorMessage,
@@ -9,6 +9,10 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { ethers } from "ethers";
+
+import { Demo__factory } from "../../typechain/factories/Demo__factory";
+import { demoContractAddress } from "../../config/contract-address";
 
 type Props = {};
 
@@ -23,6 +27,18 @@ const schema = yup
   .required();
 
 export const CryptoForm = (props: Props) => {
+  useEffect(() => {
+    loadNFTs();
+  }, []);
+
+  const loadNFTs = async () => {
+    const provider = new ethers.providers.JsonRpcProvider();
+    const demoContract = Demo__factory.connect(demoContractAddress, provider);
+    console.log(demoContract);
+    const name = await demoContract.getName();
+    console.log("name", name);
+  };
+
   const {
     handleSubmit,
     register,
