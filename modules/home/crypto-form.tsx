@@ -32,7 +32,11 @@ export const CryptoForm = (props: Props) => {
   }, []);
 
   const loadNFTs = async () => {
-    const provider = new ethers.providers.JsonRpcProvider();
+    //const provider = new ethers.providers.JsonRpcProvider();
+    const provider = new ethers.providers.InfuraProvider(
+      "rinkeby",
+      process.env.INFURA_API_KEY
+    );
     const demoContract = Demo__factory.connect(demoContractAddress, provider);
     console.log(demoContract);
     const name = await demoContract.getName();
