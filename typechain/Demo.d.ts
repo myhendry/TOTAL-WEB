@@ -21,13 +21,19 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface DemoInterface extends ethers.utils.Interface {
   functions: {
+    "getCountry()": FunctionFragment;
     "getName()": FunctionFragment;
     "setName(string)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "getCountry",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "getName", values?: undefined): string;
   encodeFunctionData(functionFragment: "setName", values: [string]): string;
 
+  decodeFunctionResult(functionFragment: "getCountry", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getName", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setName", data: BytesLike): Result;
 
@@ -78,6 +84,8 @@ export class Demo extends BaseContract {
   interface: DemoInterface;
 
   functions: {
+    getCountry(overrides?: CallOverrides): Promise<[string]>;
+
     getName(overrides?: CallOverrides): Promise<[string]>;
 
     setName(
@@ -85,6 +93,8 @@ export class Demo extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
+
+  getCountry(overrides?: CallOverrides): Promise<string>;
 
   getName(overrides?: CallOverrides): Promise<string>;
 
@@ -94,6 +104,8 @@ export class Demo extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    getCountry(overrides?: CallOverrides): Promise<string>;
+
     getName(overrides?: CallOverrides): Promise<string>;
 
     setName(_name: string, overrides?: CallOverrides): Promise<void>;
@@ -102,6 +114,8 @@ export class Demo extends BaseContract {
   filters: {};
 
   estimateGas: {
+    getCountry(overrides?: CallOverrides): Promise<BigNumber>;
+
     getName(overrides?: CallOverrides): Promise<BigNumber>;
 
     setName(
@@ -111,6 +125,8 @@ export class Demo extends BaseContract {
   };
 
   populateTransaction: {
+    getCountry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setName(

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
   FormErrorMessage,
@@ -6,10 +6,13 @@ import {
   FormControl,
   Input,
   Button,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ethers } from "ethers";
+import Web3Modal from "web3modal";
 
 import { Demo__factory } from "../../typechain/factories/Demo__factory";
 import { demoContractAddress } from "../../config/contract-address";
@@ -27,9 +30,20 @@ const schema = yup
   .required();
 
 export const CryptoForm = (props: Props) => {
+  const [recName, setRecName] = useState<string>("");
+
   useEffect(() => {
     loadNFTs();
   }, []);
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  });
 
   const loadNFTs = async () => {
     //const provider = new ethers.providers.JsonRpcProvider();
@@ -38,34 +52,34 @@ export const CryptoForm = (props: Props) => {
       process.env.INFURA_API_KEY
     );
     const demoContract = Demo__factory.connect(demoContractAddress, provider);
-    console.log(demoContract);
     const name = await demoContract.getName();
-    console.log("name", name);
+    setRecName(name);
   };
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm<Inputs>({
-    resolver: yupResolver(schema),
-  });
+  const setName = async (name: string) => {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    const demoContract = Demo__factory.connect(demoContractAddress, signer);
+    const tx = await demoContract.setName(name);
+    await tx.wait();
+    reset();
+    await loadNFTs();
+  };
 
-  const onSubmit: SubmitHandler<Inputs> = (values) => {
-    return new Promise((resolve: any) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 3000);
-    });
+  const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    await setName(values.name);
   };
 
   return (
-    <div className="p-12">
+    <Box className="p-12">
+      <Text>{recName}</Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.name}>
           {/* <FormLabel htmlFor="name">First name</FormLabel> */}
           <Input
+            className="mt-30"
             id="name"
             placeholder="name"
             {...register("name", {
@@ -86,6 +100,6 @@ export const CryptoForm = (props: Props) => {
           Submit
         </Button>
       </form>
-    </div>
+    </Box>
   );
 };
