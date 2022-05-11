@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
+import { ColorSchemeToggle } from "../common/color_scheme_toggle";
 import { Demo__factory } from "../../typechain/factories/Demo__factory";
 import { demoContractAddress } from "../../config/contract-address";
 
@@ -74,6 +75,7 @@ export const CryptoForm = (props: Props) => {
 
   return (
     <Box className="p-12">
+      <ColorSchemeToggle />
       <Text>{recName}</Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.name}>
