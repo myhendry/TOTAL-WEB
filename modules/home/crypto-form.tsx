@@ -8,13 +8,14 @@ import {
   Button,
   Box,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
-import { ColorSchemeToggle } from "../common/color_scheme_toggle";
+import { ColorSchemeToggle } from "../common";
 import { Demo__factory } from "../../typechain/factories/Demo__factory";
 import { demoContractAddress } from "../../config/contract-address";
 
@@ -32,6 +33,7 @@ const schema = yup
 
 export const CryptoForm = (props: Props) => {
   const [recName, setRecName] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     loadNFTs();
@@ -47,6 +49,7 @@ export const CryptoForm = (props: Props) => {
   });
 
   const loadNFTs = async () => {
+    setIsLoading(true);
     //const provider = new ethers.providers.JsonRpcProvider();
     const provider = new ethers.providers.InfuraProvider(
       "rinkeby",
@@ -55,9 +58,11 @@ export const CryptoForm = (props: Props) => {
     const demoContract = Demo__factory.connect(demoContractAddress, provider);
     const name = await demoContract.getName();
     setRecName(name);
+    setIsLoading(false);
   };
 
   const setName = async (name: string) => {
+    setIsLoading(true);
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -65,8 +70,9 @@ export const CryptoForm = (props: Props) => {
     const demoContract = Demo__factory.connect(demoContractAddress, signer);
     const tx = await demoContract.setName(name);
     await tx.wait();
-    reset();
     await loadNFTs();
+    reset();
+    setIsLoading(false);
   };
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
@@ -77,6 +83,7 @@ export const CryptoForm = (props: Props) => {
     <Box className="p-12">
       <ColorSchemeToggle />
       <Text>{recName}</Text>
+      {isLoading && <Spinner />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.name}>
           {/* <FormLabel htmlFor="name">First name</FormLabel> */}
@@ -84,6 +91,7 @@ export const CryptoForm = (props: Props) => {
             className="mt-30"
             id="name"
             placeholder="name"
+            disabled={isLoading}
             {...register("name", {
               required: "This is required",
               minLength: { value: 4, message: "Minimum length should be 4" },

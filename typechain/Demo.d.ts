@@ -21,21 +21,42 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface DemoInterface extends ethers.utils.Interface {
   functions: {
+    "country()": FunctionFragment;
+    "getBalance()": FunctionFragment;
     "getCountry()": FunctionFragment;
     "getName()": FunctionFragment;
+    "name()": FunctionFragment;
+    "owner()": FunctionFragment;
     "setName(string)": FunctionFragment;
+    "withdraw(uint256)": FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: "country", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "getBalance",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "getCountry",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "getName", values?: undefined): string;
+  encodeFunctionData(functionFragment: "name", values?: undefined): string;
+  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "setName", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "withdraw",
+    values: [BigNumberish]
+  ): string;
 
+  decodeFunctionResult(functionFragment: "country", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getCountry", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getName", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setName", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {};
 }
@@ -84,53 +105,115 @@ export class Demo extends BaseContract {
   interface: DemoInterface;
 
   functions: {
+    country(overrides?: CallOverrides): Promise<[string]>;
+
+    getBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     getCountry(overrides?: CallOverrides): Promise<[string]>;
 
     getName(overrides?: CallOverrides): Promise<[string]>;
+
+    name(overrides?: CallOverrides): Promise<[string]>;
+
+    owner(overrides?: CallOverrides): Promise<[string]>;
 
     setName(
       _name: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    withdraw(
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
+
+  country(overrides?: CallOverrides): Promise<string>;
+
+  getBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
   getCountry(overrides?: CallOverrides): Promise<string>;
 
   getName(overrides?: CallOverrides): Promise<string>;
+
+  name(overrides?: CallOverrides): Promise<string>;
+
+  owner(overrides?: CallOverrides): Promise<string>;
 
   setName(
     _name: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  withdraw(
+    _amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
+    country(overrides?: CallOverrides): Promise<string>;
+
+    getBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
     getCountry(overrides?: CallOverrides): Promise<string>;
 
     getName(overrides?: CallOverrides): Promise<string>;
 
+    name(overrides?: CallOverrides): Promise<string>;
+
+    owner(overrides?: CallOverrides): Promise<string>;
+
     setName(_name: string, overrides?: CallOverrides): Promise<void>;
+
+    withdraw(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
+    country(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
     getCountry(overrides?: CallOverrides): Promise<BigNumber>;
 
     getName(overrides?: CallOverrides): Promise<BigNumber>;
+
+    name(overrides?: CallOverrides): Promise<BigNumber>;
+
+    owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     setName(
       _name: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    withdraw(
+      _amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    country(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getCountry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     setName(
       _name: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    withdraw(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
