@@ -82,6 +82,7 @@ export const CryptoForm = (props: Props) => {
   return (
     <Box className="p-12">
       <ColorSchemeToggle />
+      <Text>Hello World</Text>
       <Text>{recName}</Text>
       {isLoading && <Spinner />}
       <form onSubmit={handleSubmit(onSubmit)}>
