@@ -1,6 +1,6 @@
 
   // Last Deployed on 4 network
-  export const counterContractAddress = "0xd0f8402BECF589855c2f40e24500e7359Bb31AAa"
-  export const demoContractAddress = "0xe92704D4DeA13Cd5D43Dcf4ABEE599D7A4e5791a"
-
+  export const counterContractAddress = "0x680A21AbDAc7aeaD6afD99B6A88d00DD0ae7e29b"
+  export const demoContractAddress = "0x3bc5442B8e1B4723D2e091DdD475a1Eef95Ad72b"
+  export const callDemoContractAddress = "0xe5A837ad5936Eacc0B80E0c564F724D8527Cc114"
   

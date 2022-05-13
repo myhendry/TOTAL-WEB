@@ -17,7 +17,11 @@ import Web3Modal from "web3modal";
 
 import { ColorSchemeToggle } from "../common";
 import { Demo__factory } from "../../typechain/factories/Demo__factory";
-import { demoContractAddress } from "../../config/contract-address";
+import { CallDemo__factory } from "../../typechain/factories/CallDemo__factory";
+import {
+  demoContractAddress,
+  callDemoContractAddress,
+} from "../../config/contract-address";
 
 type Props = {};
 
@@ -36,7 +40,8 @@ export const CryptoForm = (props: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    loadNFTs();
+    loadDemos();
+    loadCallDemos();
   }, []);
 
   const {
@@ -48,7 +53,21 @@ export const CryptoForm = (props: Props) => {
     resolver: yupResolver(schema),
   });
 
-  const loadNFTs = async () => {
+  const loadCallDemos = async () => {
+    const provider = new ethers.providers.InfuraProvider(
+      "rinkeby",
+      process.env.INFURA_API_KEY
+    );
+    const demoContract = Demo__factory.connect(demoContractAddress, provider);
+    const callDemo = CallDemo__factory.connect(
+      callDemoContractAddress,
+      provider
+    );
+    const name = await callDemo.getName(demoContract.address);
+    console.log("x", name);
+  };
+
+  const loadDemos = async () => {
     setIsLoading(true);
     //const provider = new ethers.providers.JsonRpcProvider();
     const provider = new ethers.providers.InfuraProvider(
@@ -70,7 +89,7 @@ export const CryptoForm = (props: Props) => {
     const demoContract = Demo__factory.connect(demoContractAddress, signer);
     const tx = await demoContract.setName(name);
     await tx.wait();
-    await loadNFTs();
+    await loadDemos();
     reset();
     setIsLoading(false);
   };
