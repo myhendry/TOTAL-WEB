@@ -1,6 +1,6 @@
 
-  // Last Deployed on 4 network
-  export const counterContractAddress = "0x680A21AbDAc7aeaD6afD99B6A88d00DD0ae7e29b"
-  export const demoContractAddress = "0x3bc5442B8e1B4723D2e091DdD475a1Eef95Ad72b"
-  export const callDemoContractAddress = "0xe5A837ad5936Eacc0B80E0c564F724D8527Cc114"
+  // Last Deployed on rinkeby network
+  export const counterContractAddress = "0x2e07Ef4da3c954d070A044169B41E89c815ee3b2"
+  export const demoContractAddress = "0xDdFA863fA37D237324578513042aD69b94A966f6"
+  export const callDemoContractAddress = "0x402E1546E60af5aFD747840413157C8F44aE1C94"
   

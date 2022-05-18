@@ -17,7 +17,7 @@ import {
 import { BytesLike } from "@ethersproject/bytes";
 import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface DemoInterface extends ethers.utils.Interface {
   functions: {
@@ -25,6 +25,7 @@ interface DemoInterface extends ethers.utils.Interface {
     "getBalance()": FunctionFragment;
     "getCountry()": FunctionFragment;
     "getName()": FunctionFragment;
+    "getTokenReserves()": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
     "setName(string)": FunctionFragment;
@@ -41,6 +42,10 @@ interface DemoInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "getName", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "getTokenReserves",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "setName", values: [string]): string;
@@ -53,6 +58,10 @@ interface DemoInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getCountry", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getName", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getTokenReserves",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setName", data: BytesLike): Result;
@@ -113,6 +122,10 @@ export class Demo extends BaseContract {
 
     getName(overrides?: CallOverrides): Promise<[string]>;
 
+    getTokenReserves(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber]>;
+
     name(overrides?: CallOverrides): Promise<[string]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -135,6 +148,8 @@ export class Demo extends BaseContract {
   getCountry(overrides?: CallOverrides): Promise<string>;
 
   getName(overrides?: CallOverrides): Promise<string>;
+
+  getTokenReserves(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
   name(overrides?: CallOverrides): Promise<string>;
 
@@ -159,6 +174,10 @@ export class Demo extends BaseContract {
 
     getName(overrides?: CallOverrides): Promise<string>;
 
+    getTokenReserves(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber]>;
+
     name(overrides?: CallOverrides): Promise<string>;
 
     owner(overrides?: CallOverrides): Promise<string>;
@@ -178,6 +197,8 @@ export class Demo extends BaseContract {
     getCountry(overrides?: CallOverrides): Promise<BigNumber>;
 
     getName(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getTokenReserves(overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -202,6 +223,8 @@ export class Demo extends BaseContract {
     getCountry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getTokenReserves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
