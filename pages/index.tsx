@@ -1,9 +1,10 @@
 // import styles from "../styles/Home.module.css";
+import { Center } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-import { CryptoForm } from "../modules/home";
+import { ColorSchemeToggle } from "../modules/common";
 
 const Home: NextPage = () => {
   return (
@@ -14,10 +15,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Link href="/design">
-        <a className="cursor-pointer">Go to Design</a>
-      </Link>
-      {/* <CryptoForm /> */}
+      <Center py={2}>
+        <ColorSchemeToggle />
+      </Center>
+      <Center>
+        <Link href="/demo">
+          <a className="cursor-pointer">Go to Demo</a>
+        </Link>
+      </Center>
     </div>
   );
 };
