@@ -1,6 +1,7 @@
 
-  // Last Deployed on rinkeby network
-  export const counterContractAddress = "0x2e07Ef4da3c954d070A044169B41E89c815ee3b2"
-  export const demoContractAddress = "0xDdFA863fA37D237324578513042aD69b94A966f6"
-  export const callDemoContractAddress = "0x402E1546E60af5aFD747840413157C8F44aE1C94"
+  // Last Deployed on unknown network
+  export const counterContractAddress = "0x1780bCf4103D3F501463AD3414c7f4b654bb7aFd"
+  export const demoContractAddress = "0x5133BBdfCCa3Eb4F739D599ee4eC45cBCD0E16c5"
+  export const callDemoContractAddress = "0x71089Ba41e478702e1904692385Be3972B2cBf9e"
+  export const accountFactoryAddress = "0x8F4ec854Dd12F1fe79500a1f53D0cbB30f9b6134"
   

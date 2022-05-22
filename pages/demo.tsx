@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "@chakra-ui/react";
+import DemoModule from "../modules/demo";
 
 const Demo: NextPage = () => (
   <Container>
@@ -10,7 +11,7 @@ const Demo: NextPage = () => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <p>Demo</p>
+    <DemoModule />
   </Container>
 );
 
