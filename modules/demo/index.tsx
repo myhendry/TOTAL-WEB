@@ -11,6 +11,7 @@ import {
   TradeType,
 } from "@uniswap/sdk";
 import Web3Modal from "web3modal";
+
 import UNISWAPV2_ROUTER_ABI from "../../abi/router.json";
 
 //! 1. Use JS Uniswapv2 SDK
@@ -18,7 +19,7 @@ import UNISWAPV2_ROUTER_ABI from "../../abi/router.json";
 
 type Props = {};
 
-const Demo = (props: Props) => {
+const Demo = (Props: Props) => {
   const provider = new ethers.providers.AlchemyProvider(
     "mainnet",
     process.env.ALCHEMY_API_KEY
