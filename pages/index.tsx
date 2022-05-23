@@ -1,5 +1,4 @@
-// import styles from "../styles/Home.module.css";
-import { Center } from "@chakra-ui/react";
+import { Center, VStack } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -15,14 +14,26 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Center py={2}>
-        <ColorSchemeToggle />
-      </Center>
-      <Center>
-        <Link href="/demo">
-          <a className="cursor-pointer">Go to Demo</a>
-        </Link>
-      </Center>
+      <VStack>
+        <Center py={2}>
+          <ColorSchemeToggle />
+        </Center>
+        <Center>
+          <Link href="/demo/custom-contract">
+            <a className="cursor-pointer">Custom Contract</a>
+          </Link>
+        </Center>
+        <Center>
+          <Link href="/demo/uniswapv2">
+            <a className="cursor-pointer">Uniswapv2 Contract</a>
+          </Link>
+        </Center>
+        <Center>
+          <Link href="/demo/uniswapv2-gql">
+            <a className="cursor-pointer">Uniswapv2 Subgraph</a>
+          </Link>
+        </Center>
+      </VStack>
     </div>
   );
 };

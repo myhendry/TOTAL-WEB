@@ -13,7 +13,6 @@ export type { Counter } from "./Counter";
 export type { Demo } from "./Demo";
 export type { UniswapV2Factory } from "./UniswapV2Factory";
 export type { UniswapV2Pair } from "./UniswapV2Pair";
-export type { Store } from "./Store";
 
 export { ERC20__factory } from "./factories/ERC20__factory";
 export { IERC20Metadata__factory } from "./factories/IERC20Metadata__factory";
@@ -27,4 +26,3 @@ export { Counter__factory } from "./factories/Counter__factory";
 export { Demo__factory } from "./factories/Demo__factory";
 export { UniswapV2Factory__factory } from "./factories/UniswapV2Factory__factory";
 export { UniswapV2Pair__factory } from "./factories/UniswapV2Pair__factory";
-export { Store__factory } from "./factories/Store__factory";

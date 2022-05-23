@@ -60,10 +60,6 @@ declare module "hardhat/types/runtime" {
       name: "UniswapV2Pair",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.UniswapV2Pair__factory>;
-    getContractFactory(
-      name: "Store",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Store__factory>;
 
     getContractAt(
       name: "ERC20",
@@ -125,11 +121,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.UniswapV2Pair>;
-    getContractAt(
-      name: "Store",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Store>;
 
     // default types
     getContractFactory(

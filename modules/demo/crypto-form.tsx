@@ -35,6 +35,24 @@ const schema = yup
   })
   .required();
 
+//* Localhost
+const provider = new ethers.providers.JsonRpcProvider();
+//* Infura Rinkeby
+// const provider = new ethers.providers.InfuraProvider(
+//   "rinkeby",
+//   process.env.INFURA_API_KEY
+// );
+//* Alchemy Hardhat
+// const provider = new ethers.providers.AlchemyProvider(
+//   "mainnet",
+//   process.env.ALCHEMY_API_KEY
+// );
+//* Alchemy Rinkeby
+// const provider = new ethers.providers.AlchemyProvider(
+//   "rinkeby",
+//   process.env.ALCHEMY_API_KEY
+// );
+
 export const CryptoForm = (props: Props) => {
   const [recName, setRecName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -54,28 +72,23 @@ export const CryptoForm = (props: Props) => {
   });
 
   const loadCallDemos = async () => {
-    const provider = new ethers.providers.InfuraProvider(
-      "rinkeby",
-      process.env.INFURA_API_KEY
-    );
     const demoContract = Demo__factory.connect(demoContractAddress, provider);
     const callDemo = CallDemo__factory.connect(
       callDemoContractAddress,
       provider
     );
     const name = await callDemo.getName(demoContract.address);
-    console.log("x", name);
+    console.log("name", name);
   };
 
   const loadDemos = async () => {
     setIsLoading(true);
-    //const provider = new ethers.providers.JsonRpcProvider();
-    const provider = new ethers.providers.InfuraProvider(
-      "rinkeby",
-      process.env.INFURA_API_KEY
-    );
+
+    console.log("provider", provider);
     const demoContract = Demo__factory.connect(demoContractAddress, provider);
+    console.log("demoContract", demoContract);
     const name = await demoContract.getName();
+    console.log("name", name);
     setRecName(name);
     setIsLoading(false);
   };
